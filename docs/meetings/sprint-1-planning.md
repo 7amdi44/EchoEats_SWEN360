@@ -20,6 +20,7 @@ See [user_stories.md](../user_stories.md).
 | Write the first non-functional requirements | Redha Karashi | 17/10/2026 |
 | Create wireframes for Post Food, Nearby Deals, and Reservation | Hamdi Elagha | 17/10/2026 |
 | Set up the GitHub repository structure and README | Hamdi Elagha | 17/10/2026 |
+| Add Sprint 1 progress to the GitHub repository | Saud Aldoseri | 17/10/2026 |
 | Review the work and add each member's own contribution to GitHub | Everyone | 17/10/2026 |
 
 ## Sprint 1 board snapshots
