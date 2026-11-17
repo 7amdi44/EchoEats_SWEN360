@@ -1,1 +1,1 @@
-<img width="1680" height="1881" alt="EchoEats – Mobile Wireframes   Prototype" src="https://github.com/user-attachments/assets/9978c50d-7489-475a-a9c7-7d03dad2ef3d" />
+<img width="1680" height="1881" alt="EchoEats – Mobile Wireframes   Prototype" src="https://github.com/user-attachments/assets/71761d83-a924-43d1-9fcc-4a98fe2088d3" />
