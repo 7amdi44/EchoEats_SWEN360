@@ -1,0 +1,47 @@
+sequenceDiagram
+    autonumber
+    actor Consumer
+    participant App as app : EchoEatsApp
+    participant RS as reservation : ReservationService
+    participant L as listing : Listing
+    participant P as pricing : PricingStrategy
+    participant Pay as payment : PaymentService
+    participant S as scheduler : PriceScheduler
+    participant R as reservation : Reservation
+    participant O as order : Order
+
+    Consumer->>App: Select listing and quantity
+    App->>RS: requestReservation(listingId, quantity)
+    RS->>L: checkAvailability(quantity)
+    L-->>RS: Return available quantity
+
+    alt Stock unavailable
+        RS-->>App: Reservation rejected
+        App-->>Consumer: Display unavailable message
+    else Stock available
+        RS->>P: calculatePrice(listing)
+        P-->>RS: Return current price
+        RS->>R: <<create>> createHold(quantity, price, 15 minutes)
+        R-->>RS: Hold created
+        RS-->>App: Return reservation details
+        App-->>Consumer: Display price and countdown
+
+        alt Payment confirmed within 15 minutes
+            Consumer->>App: Confirm payment
+            App->>RS: confirmReservation(reservationId)
+            RS->>Pay: processPayment(price)
+            Pay-->>RS: Payment successful
+            RS->>R: markAsConfirmed()
+            RS->>L: Update available quantity
+            RS->>O: <<create>> createOrder(pricePaid, pickupCode)
+            O-->>RS: Order created
+            RS-->>App: Return order confirmation
+            App-->>Consumer: Display confirmation and pickup code
+        else Reservation expires
+            S->>RS: releaseExpiredReservation(reservationId)
+            RS->>R: markAsExpired()
+            RS->>L: Restore available quantity
+            RS-->>App: Reservation expired
+            App-->>Consumer: Display expiration message
+        end
+    end
